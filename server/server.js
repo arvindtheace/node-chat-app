@@ -21,8 +21,9 @@ io.on('connection', (socket) => {
     //send a message to others notifying that a new user has joined
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined the chat'));
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
         io.emit('newMessage', generateMessage(message.from, message.text));
+        callback('This is from the server');
     });
 
     socket.on('disconnect', () => {
